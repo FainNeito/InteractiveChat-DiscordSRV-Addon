@@ -1,5 +1,29 @@
 # Build verification follow-up
 
+## Maven model uniqueness follow-up, 2026-10-08
+
+- WHEN Maven reads a reactor model THE SYSTEM SHALL declare each dependency
+  coordinate (group, artifact, type, classifier) once, retaining its original
+  version and scope.
+- [x] INFRA-002 local implementation: remove identical duplicate Gson serializer dependencies from
+  the canonical owner fork and enforce model uniqueness in hosted verification.
+  Base: fetched owner master `746cf2e33de06dc9e0dd36ebc1668fea5ce6e42f`.
+  Diagnostic: network PR #169 run 37782503774 fails model validation before
+  compiling the add-on; local Maven 3.9.11 previously tolerated the duplicates.
+  SPEAR: infrastructure-only spec, reproducible model regression, minimal POM
+  repair, unchanged runtime dependencies, then full clean reactor verification.
+  No gameplay red/green is claimed. This repository has no EARS/state helpers;
+  this record is the manual requirement/task/evidence tracker. Hosted checks,
+  review, merge and later network pin reconciliation remain separate gates.
+  Regression: the new complete-reactor model test failed on 44 duplicate
+  declarations before the repair and passes after removing those identical
+  blocks. Java 25/Maven 3.9.11 clean verify passes all 46 modules, including
+  26.2/26.3, and executes 21 item-name, 24 plain-chat and 10 Staff visibility
+  assertions. No dependency version/scope or runtime implementation changed.
+  Local unmerged artifact SHA-256:
+  `4c35c0fa4e79eb3a0547041b47b989aa731e750bf2499ecbfe92de4a0941e453`.
+  Exact-head hosted CI/review and merge remain pending. No production changes.
+
 ## Combined release review, 2026-10-06
 
 - Spec: deliver implicit-ended bold gradients and authoritative Staff public
