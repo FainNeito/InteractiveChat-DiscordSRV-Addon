@@ -204,7 +204,7 @@ public class DiscordItemStackUtils {
         }
         ICMaterial icMaterial = ICMaterial.from(item);
 
-        Component itemDisplayNameComponent = DiscordItemNamePresentation.format(ItemStackUtils.getDisplayName(item));
+        Component itemDisplayNameComponent = DiscordItemNamePresentation.formatForImage(ItemStackUtils.getDisplayName(item));
         prints.add(tooltipText(itemDisplayNameComponent));
 
         boolean hasMeta = item.getItemMeta() != null;
