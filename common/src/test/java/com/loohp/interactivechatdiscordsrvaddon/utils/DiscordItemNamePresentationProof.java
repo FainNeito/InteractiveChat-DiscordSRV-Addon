@@ -60,6 +60,16 @@ public final class DiscordItemNamePresentationProof {
         check("unrelated <gradient:#00FF1C:#00EAFF>Name</gradient>".equals(
                 DiscordItemNamePresentation.replaceWeaponName("unrelated <gradient:#00FF1C:#00EAFF>Name</gradient>", original)),
                 "unrelated message markup unchanged");
+        String legacyDeath = "FainNeito was slain by Zombie using \u00a7f[\u00a7o:enthusia: <b><gradient:#151515:#0B1B36>Honored</gradient>\u00a7f]";
+        check("FainNeito was slain by Zombie using [:enthusia: Honored]".equals(
+                DiscordItemNamePresentation.formatPlainDeathMessage(legacyDeath)), "legacy death message");
+        check("FainNeito was slain by Zombie using [:enthusia: Honored]".equals(
+                DiscordItemNamePresentation.replaceWeaponName(DiscordItemNamePresentation.removeLegacyFormatting(legacyDeath),
+                        Component.text(":enthusia: <b><gradient:#151515:#0B1B36>Honored</gradient>"))), "legacy weapon replacement");
+        check(":enthusia: Mapart".equals(DiscordItemNamePresentation.plain(Component.text(":enthusia: <red>Mapart"))), "named color");
+        Component glyph = DiscordItemNamePresentation.formatGlyphs(Component.text(":enthusia:"),
+                token -> ":enthusia:".equals(token) ? Component.text("★") : null);
+        check("★".equals(PlainTextComponentSerializer.plainText().serialize(glyph)), "glyph resolver");
         System.out.println("Passed " + checks + " Discord item-name checks");
     }
     private static boolean hasBold(Component component) {

@@ -655,7 +655,8 @@ public class OutboundToDiscordEvents implements Listener {
         }
         ItemStack weapon = ComponentStringUtils.extractItemStack(deathMessage);
         if (weapon != null && weapon.getType() != Material.AIR) {
-            event.setDeathMessage(DiscordItemNamePresentation.replaceWeaponName(event.getDeathMessage(), ItemStackUtils.getDisplayName(weapon)));
+            event.setDeathMessage(DiscordItemNamePresentation.replaceWeaponName(
+                    DiscordItemNamePresentation.removeLegacyFormatting(event.getDeathMessage()), ItemStackUtils.getDisplayName(weapon)));
         }
     }
 
